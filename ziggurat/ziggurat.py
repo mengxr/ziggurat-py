@@ -2,7 +2,7 @@ from time import time
 
 from numpy import reshape, floor
 
-import _ziggurat
+from . import _ziggurat
 
 def seed(s):
     _ziggurat.seed(int(s))
