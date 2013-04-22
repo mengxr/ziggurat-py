@@ -57,9 +57,28 @@ static PyMethodDef _ziggurat_methods[] =
     },
   };
 
+#if PY_MAJOR_VERSION >= 3
+struct PyModuleDef module_def = {
+        PyModuleDef_HEAD_INIT,
+        "_ziggurat",
+        NULL,
+        -1,
+        _ziggurat_methods,
+        NULL, NULL, NULL, NULL
+};
+#endif
+
+#if PY_MAJOR_VERSION >= 3
+PyMODINIT_FUNC PyInit__ziggurat(void)
+{
+        import_array();
+	return PyModule_Create( &module_def );
+}
+#else
 PyMODINIT_FUNC init_ziggurat(void)
 {
-  (void) Py_InitModule("_ziggurat", _ziggurat_methods);
-  import_array();
+        import_array();
+	(void) Py_InitModule( "_ziggurat", _ziggurat_methods );
 }
+#endif
 
